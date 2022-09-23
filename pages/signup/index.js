@@ -69,15 +69,27 @@ export default SignUp;
 export const getServerSideProps = async (ctx) => {
   const jwt = parseCookies(ctx).jwt;
   console.log(ctx.req.cookies);
+  let rest;
+  try {
+    const req = await fetch(process.env.NEXT_PUBLIC_URL + "/api/users/me", {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
 
-  const req = await fetch(process.env.NEXT_PUBLIC_URL + "/api/users/me", {
-    headers: {
-      Authorization: `Bearer ${jwt}`,
-    },
-  });
-
-  const rest = await req.json();
+    rest = await req.json();
+  } catch (e) {
+    rest = [];
+  }
   //console.log(rest)
+  if (rest.length === 0) {
+    return {
+      redirect: {
+        destination: "/500",
+        permanent: false,
+      },
+    };
+  }
 
   if (rest.confirmed) {
     return {

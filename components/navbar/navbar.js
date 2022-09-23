@@ -57,7 +57,7 @@ const Navbar = () => {
           {items.map((items) => {
             return (
               <Link key={items.name} href={items.link}>
-                <a className="px-5 py-4">{items.name}</a>
+                <a className="px-5 py-4" onClick={() => setDropmenu((dropmenu) => !dropmenu)}>{items.name}</a>
               </Link>
             );
           })}

@@ -23,8 +23,20 @@ const Job = ({data}) => {
 export default Job;
 
 export const getServerSideProps = async () => {
-  const res = await fetch(process.env.NEXT_PUBLIC_URL + "/api/jobs?populate=*");  
-  const data = await res.json();
+  let data;
+  try{const res = await fetch(process.env.NEXT_PUBLIC_URL + "/api/jobs?populate=*");  
+  data = await res.json();
+}catch(e){
+  data =[]
+}
+  if (data.length === 0) {
+    return {
+      redirect: {
+        destination: '/500',
+        permanent: false,
+      },
+    };
+  }
   
   return {
     props: { data : data.data },

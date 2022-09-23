@@ -8,7 +8,7 @@ const Jobcard = (data) => {
 
   const router = useRouter();
   return (
-    <div className={`rounded-3xl shadow px-4 py-3 bg-white border-2 ${featured}`}>
+    <div className={`rounded-3xl shadow-md px-4 py-3 bg-white border-2 ${featured}`}>
       {/**Industry */}
       <div className="bg-sky-100 text-sm text-sky-600 w-max py-2 px-4 rounded-3xl my-4">
         {data.attributes.industry.data.attributes.industry}
@@ -20,6 +20,7 @@ const Jobcard = (data) => {
       >
         {data.attributes.title}
       </div>
+      {/* Location */}
       <div className="flex align-middle my-3 text-gray-500 justify-between">
         <div className="flex space-x-1 bg-gray-200 px-3 rounded-3xl">
           {<Image src="/images/location.svg" alt="" height={15} width={15} />}
@@ -35,13 +36,14 @@ const Jobcard = (data) => {
             {/**Company Logo */}
             <Image
               className="rounded-full shadow-md"
-              src={process.env.NEXT_PUBLIC_URL + data.attributes.logo.data.attributes.url}
+              src={data.attributes.logo.data === null ? "/images/jobopenings_Icon_01.png" : process.env.NEXT_PUBLIC_URL + data.attributes.logo.data.attributes.url}
+              onError={"/images/jobopenings_Icon_01.png"}
               alt="logo"
               height={40}
               width={40}
             />
           </div>
-          {/**Company Name */}
+          {/**Company Name */}          
           <p className="font-semibold">{data.attributes.CompanyName}</p>
         </div>
         <p className="text-gray-500 flex items-center">5hr ago</p>

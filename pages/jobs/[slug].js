@@ -26,10 +26,7 @@ const Singlejob = ({ job }) => {
               <div className="absolute mt-20">
                 <Image
                   className="bg-white rounded-full shadow"
-                  src={
-                    process.env.NEXT_PUBLIC_URL +
-                    job[0].attributes.logo.data.attributes.url
-                  }
+                  src={job[0].attributes.logo.data === null ? "/images/jobopenings_Icon_01.png" : process.env.NEXT_PUBLIC_URL + job[0].attributes.logo.data.attributes.url}
                   alt={job[0].attributes.CompanyName}
                   height={100}
                   width={100}

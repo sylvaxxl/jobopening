@@ -6,6 +6,7 @@ import Homepagelist from "../components/homepagelist/hompagelist";
 import { useState, useEffect } from "react";
 import Joblist from "../components/homepagelist/joblist";
 import Jobcard from "../components/homepagelist/jobcard";
+import Error from 'next/error'
 
 export default function Home({ data }) {
  
@@ -39,8 +40,22 @@ export default function Home({ data }) {
 }
 
 export const getServerSideProps = async () => {
-  const res = await fetch(process.env.NEXT_PUBLIC_URL + "/api/jobs?populate=*&pagination[pageSize]=6");  
-  const data = await res.json();
+  let data;
+  try{const res = await fetch(process.env.NEXT_PUBLIC_URL + "/api/jobs?populate=*&pagination[pageSize]=6");  
+  data = await res.json();}
+  catch(e){
+    console.log(e)
+    data = []
+  }
+
+  if (data.length === 0) {
+    return {
+      redirect: {
+        destination: '/500',
+        permanent: false,
+      },
+    };
+  }
   
   return {
     props: { data : data.data },
