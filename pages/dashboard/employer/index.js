@@ -69,7 +69,7 @@ const EmployerDashboard = (ctx) => {
 
   useEffect(() => {
     data();
-  }, []);
+  }, [jwt]);
 
   const handleClick = ()=>{
     // setUserDetails(null)
@@ -85,7 +85,7 @@ const EmployerDashboard = (ctx) => {
     <div className="flex">
       <div className="w-1/4 bg-[#0F74BB] min-h-screen hidden md:block">
         <div className="flex justify-center m-3">
-          <Image className="rounded-full" src={logo} height={80} width={80} />
+          <Image className="rounded-full" src={logo} height={80} width={80} alt=""/>
         </div>
 
         {!loading && (
@@ -229,6 +229,7 @@ const EmployerDashboard = (ctx) => {
                 src={logo}
                 height={80}
                 width={80}
+                alt=""
               />
             </div>
 

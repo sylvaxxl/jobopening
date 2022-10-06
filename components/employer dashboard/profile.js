@@ -54,6 +54,7 @@ const Profile = (ctx) => {
               src={logo}
               height={80}
               width={80}
+              alt=""
             />
             <input
               type="file"

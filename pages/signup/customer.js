@@ -135,7 +135,7 @@ const CustomerSignup = () => {
   return (
     <div className="bg-blue-900 flex flex-col justify-center items-center min-h-screen">
       <h1 className="text-center text-3xl text-slate-50 font-semibold py-4 my-4">
-        Create a Job Seeker's Account
+        Create a Job Seeker&apos;s Account
       </h1>
       <form onSubmit={handleSubmit} className="px-4 md:px-0">
         <div className="md:flex md:space-x-3 md:my-3">
@@ -217,7 +217,7 @@ const CustomerSignup = () => {
               onChange={handleChange}
             />
             {errRepassword && (
-              <p className={errmessage}>{errIcon} passwords don't match</p>
+              <p className={errmessage}>{errIcon} passwords don&apos;t match</p>
             )}
           </div>
         </div>

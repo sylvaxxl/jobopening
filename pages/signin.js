@@ -91,7 +91,7 @@ const SignIn = () => {
           <div className="flex justify-center flex-col items-center -mt-4 space-y-5">
             <Link className="" href="/">forgot your password?</Link> 
           <button className="flex self-center bg-[#0F74BB] px-8 py-2 border-2 border-[#0F74BB] text-slate-50 rounded-3xl hover:bg-white hover:text-[#0F74BB]">Sign In</button>
-          <Link href='/signup'>Don't have an account?</Link>
+          <Link href='/signup'>Don&apos;t have an account?</Link>
           </div>
          
         </form>

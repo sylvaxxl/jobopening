@@ -207,7 +207,7 @@ const EmployerSignup = () => {
               onChange={handleChange}
             />
             {errRepassword && (
-              <p className={errmessage}>{errIcon} passwords don't match</p>
+              <p className={errmessage}>{errIcon} passwords don&apos;t match</p>
             )}
           </div>
         </div>

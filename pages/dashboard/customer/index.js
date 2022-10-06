@@ -66,7 +66,7 @@ const CustomerDashboard = (ctx) => {
 
   useEffect(() => {
     data();
-  }, []);
+  }, [jwt]);
 
   const handleClick = () => {
     setUserDetails(null);
@@ -227,6 +227,7 @@ const CustomerDashboard = (ctx) => {
                 src={logo}
                 height={80}
                 width={80}
+                alt="Logo"
               />
             </div>
 

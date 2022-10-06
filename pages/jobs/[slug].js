@@ -146,7 +146,7 @@ const Singlejob = ({ job }) => {
 
   useEffect(() => {
     checkLink();
-  }, []);
+  }, [job]);
 
   return <div>{jobLink}</div>;
 };
