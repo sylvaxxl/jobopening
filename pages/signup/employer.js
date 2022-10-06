@@ -4,7 +4,12 @@ import Router from "next/router";
 import { setCookie, parseCookies } from "nookies";
 
 const EmployerSignup = () => {
-  const [signupData, setSignupData] = useState({ credit: 0, usertype: "employer" });
+  let r = (Math.random() + 1).toString(36).substring(4);
+  const [signupData, setSignupData] = useState({
+    credit: 0,
+    usertype: "employer",
+    username: r,
+  });
   const inputClass =
     "appearance-none block md:w-[350px] w-full bg-gray-100 text-gray-700 rounded-3xl py-3 px-4 mb-3 border-2 border-blue-200 leading-tight focus:outline-none focus:bg-white focus:border-[#0F74BB]";
   const errIcon = (
@@ -43,9 +48,9 @@ const EmployerSignup = () => {
     const passwordCheck = new RegExp(
       "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
     );
-    const usernameCheck = new RegExp(
-      "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$"
-    );
+    // const usernameCheck = new RegExp(
+    //   "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$"
+    // );
     const phoneCheck = new RegExp(
       "^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$"
     );
@@ -62,11 +67,11 @@ const EmployerSignup = () => {
       setErrLastname(false);
     }
 
-    if (!usernameCheck.test(signupData.username)) {
-      return setErrUsername(true);
-    } else {
-      setErrUsername(false);
-    }
+    // if (!usernameCheck.test(signupData.username)) {
+    //   return setErrUsername(true);
+    // } else {
+    //   setErrUsername(false);
+    // }
 
     if (!passwordCheck.test(signupData.password)) {
       return setErrPassword(true);
@@ -166,18 +171,29 @@ const EmployerSignup = () => {
               onChange={handleChange}
             />
           </div>
-          <div>
-            <input
-              className={inputClass}
-              name="username"
-              type="text"
-              placeholder="Username"
-              required
-              onChange={handleChange}
-            />
-            {errUsername && (
-              <p className={errmessage}>{errIcon} Invalid Username</p>
-            )}
+          <div className="">
+            <div className="mb-3 xl:w-96">
+              <select
+                onChange={handleChange}
+                name="position"
+                required
+                className={`transition ease-in-out ${inputClass}`}
+              >
+                <option value="">Position in company</option>
+                <option value="C-level: CEO / COO / CIO / CFO / CTO / CPO">
+                  C-level: CEO / COO / CIO / CFO / CTO / CPO
+                </option>
+                <option value="Senior Management: Head of Department / Team Lead">
+                  Senior Management: Head of Department / Team Lead
+                </option>
+                <option value="Middle Management: Supervisor / Unit Head">
+                  Middle Management: Supervisor / Unit Head
+                </option>
+                <option value="Junior Level: Associate / Officer">
+                  Junior Level: Associate / Officer
+                </option>
+              </select>
+            </div>
           </div>
         </div>
         <div className="md:flex md:space-x-3 md:my-3">
@@ -236,30 +252,7 @@ const EmployerSignup = () => {
             />
           </div>
         </div>
-        <div className="">
-          <div className="mb-3 xl:w-96">
-            <select
-              onChange={handleChange}
-              name="position"
-              required
-              className={`transition ease-in-out ${inputClass}`}
-            >
-              <option value="">Position in company</option>
-              <option value="C-level: CEO / COO / CIO / CFO / CTO / CPO">
-                C-level: CEO / COO / CIO / CFO / CTO / CPO
-              </option>
-              <option value="Senior Management: Head of Department / Team Lead">
-                Senior Management: Head of Department / Team Lead
-              </option>
-              <option value="Middle Management: Supervisor / Unit Head">
-                Middle Management: Supervisor / Unit Head
-              </option>
-              <option value="Junior Level: Associate / Officer">
-                Junior Level: Associate / Officer
-              </option>
-            </select>
-          </div>
-        </div>
+
         <div className="flex justify-center my-10">
           <button className="flex self-center bg-[#0F74BB] px-14 py-2 border-2 border-[#0F74BB] text-slate-50 rounded-3xl hover:bg-white hover:text-[#0F74BB]">
             Sign Up
