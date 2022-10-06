@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react"
 import { UserContext } from "../userContext"
 import { parseCookies } from "nookies";
 
-const postJob = (ctx)=>{
+const PostJob = (ctx)=>{
   const jwt = parseCookies(ctx).jwt;
     let r = (Math.random() + 1).toString(36).substring(7);
     const [userDetails, myPostedJobs] = useContext(UserContext)
@@ -238,4 +238,4 @@ const postJob = (ctx)=>{
         </div>
     )
 }
-export default postJob
+export default PostJob

@@ -3,7 +3,7 @@ import PostedJobsCard from "./postedJobsCard"
 import { UserContext } from "../userContext"
 
 
-const postedJobs = ()=>{
+const PostedJobs = ()=>{
     const [userDetails, setUserDetails, myPostedJobs, setMyPostedJobs] = useContext(UserContext);
     //console.log(myPostedJobs)
     return(
@@ -15,4 +15,4 @@ const postedJobs = ()=>{
         </div>
     )
 }
-export default postedJobs
+export default PostedJobs

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const customerOverview = () => {
+const CustomerOverview = () => {
   const svgClass = "w-6 h-6 mr-6";
   const header2 = "text-2xl font-semibold pb-3";
   const ballonClass = "px-3 py-2 rounded-3xl border-[1px] border-gray-400";
@@ -378,4 +378,4 @@ const customerOverview = () => {
     </div>
   );
 };
-export default customerOverview;
+export default CustomerOverview;

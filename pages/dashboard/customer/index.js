@@ -9,7 +9,7 @@ import CustomerOverview from "../../../components/customer dashboard/overview";
 import EditProfile from "../../../components/customer dashboard/editProfile";
 import WorkExperience from "../../../components/customer dashboard/workExperience";
 
-const customerDashboard = (ctx) => {
+const CustomerDashboard = (ctx) => {
   const jwt = parseCookies(ctx).jwt;
   const [
     userDetails,
@@ -335,7 +335,7 @@ const customerDashboard = (ctx) => {
     </div>
   );
 };
-export default customerDashboard;
+export default CustomerDashboard;
 
 export const getServerSideProps = async (ctx) => {
   const jwt = parseCookies(ctx).jwt;

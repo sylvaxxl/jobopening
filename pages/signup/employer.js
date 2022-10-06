@@ -3,7 +3,7 @@ import nookies from "nookies";
 import Router from "next/router";
 import { setCookie, parseCookies } from "nookies";
 
-const employerSignup = () => {
+const EmployerSignup = () => {
   const [signupData, setSignupData] = useState({ credit: 0, usertype: "employer" });
   const inputClass =
     "appearance-none block md:w-[350px] w-full bg-gray-100 text-gray-700 rounded-3xl py-3 px-4 mb-3 border-2 border-blue-200 leading-tight focus:outline-none focus:bg-white focus:border-[#0F74BB]";
@@ -269,7 +269,7 @@ const employerSignup = () => {
     </div>
   );
 };
-export default employerSignup;
+export default EmployerSignup;
 
 export const getServerSideProps = async (ctx) => {
   const jwt = parseCookies(ctx).jwt;

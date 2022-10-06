@@ -3,7 +3,7 @@ import nookies from "nookies";
 import Router from "next/router";
 import { setCookie, parseCookies } from "nookies";
 
-const customerSignup = () => {
+const CustomerSignup = () => {
   let r = (Math.random() + 1).toString(36).substring(4);
   const [signupData, setSignupData] = useState({
     usertype: "customer",
@@ -292,7 +292,7 @@ const customerSignup = () => {
     </div>
   );
 };
-export default customerSignup;
+export default CustomerSignup;
 
 export const getServerSideProps = async (ctx) => {
   const jwt = parseCookies(ctx).jwt;

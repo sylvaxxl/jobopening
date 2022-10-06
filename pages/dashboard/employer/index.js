@@ -10,7 +10,7 @@ import Loading from "../../../components/loading";
 import Profile from "../../../components/employer dashboard/profile";
 import Router from "next/router";
 
-const employerDashboard = (ctx) => {
+const EmployerDashboard = (ctx) => {
   const jwt = parseCookies(ctx).jwt;
   const [
     userDetails,
@@ -326,7 +326,7 @@ const employerDashboard = (ctx) => {
     </div>
   );
 };
-export default employerDashboard;
+export default EmployerDashboard;
 
 export const getServerSideProps = async (ctx) => {
   const jwt = parseCookies(ctx).jwt;

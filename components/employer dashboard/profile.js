@@ -3,7 +3,7 @@ import { UserContext } from "../userContext";
 import Image from "next/image";
 import { parseCookies } from "nookies";
 
-const profile = (ctx) => {
+const Profile = (ctx) => {
   const [
     userDetails,
     setUserDetails,
@@ -153,4 +153,4 @@ const profile = (ctx) => {
     </div>
   );
 };
-export default profile;
+export default Profile;
