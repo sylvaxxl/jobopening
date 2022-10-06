@@ -7,6 +7,7 @@ import Loading from "../../../components/loading";
 import Router from "next/router";
 import CustomerOverview from "../../../components/customer dashboard/overview";
 import EditProfile from "../../../components/customer dashboard/editProfile";
+import WorkExperience from "../../../components/customer dashboard/workExperience";
 
 const customerDashboard = (ctx) => {
   const jwt = parseCookies(ctx).jwt;
@@ -76,7 +77,7 @@ const customerDashboard = (ctx) => {
     });
     Router.push("/");
   };
-  //console.log(customerDetails);
+  console.log(userDetails);
 
   return (
     <div className="flex">
@@ -107,7 +108,10 @@ const customerDashboard = (ctx) => {
               </svg>
               Overview
             </p>
-            <p className="flex cursor-pointer" onClick={() => setRendered(<EditProfile />)}>
+            <p
+              className="flex cursor-pointer"
+              onClick={() => setRendered(<EditProfile />)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -123,6 +127,23 @@ const customerDashboard = (ctx) => {
                 />
               </svg>
               Edit Profile
+            </p>
+            <p className="flex cursor-pointer" onClick={() => setRendered(<WorkExperience />)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className={listIcon}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
+                />
+              </svg>
+              Experience
             </p>
             <p className="flex cursor-pointer">
               <svg
@@ -255,6 +276,23 @@ const customerDashboard = (ctx) => {
                 </svg>
                 Edit Profile
               </p>
+              <p className="flex cursor-pointer" onClick={() => setRendered(<WorkExperience />) + setSideBar(!sideBar)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className={listIcon}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
+                />
+              </svg>
+              Experience
+            </p>
               <p className="flex" onClick={() => setSideBar(!sideBar)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -273,22 +311,22 @@ const customerDashboard = (ctx) => {
                 Applied Jobs
               </p>
               <p className="flex cursor-pointer" onClick={handleClick}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className={listIcon}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
-                />
-              </svg>
-              Logout
-            </p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className={listIcon}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+                  />
+                </svg>
+                Logout
+              </p>
             </div>
           </div>
         )}

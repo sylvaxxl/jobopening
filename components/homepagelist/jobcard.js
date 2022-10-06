@@ -3,6 +3,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Jobcard = (data) => {
+  const myLoader = ({ src, width, quality }) => {
+    return `/images/jobopenings_Icon_01.png`
+  }
   //console.log(data);  
   const featured = data.attributes.featured ? "border-green-500": "border-white"
 
@@ -37,10 +40,11 @@ const Jobcard = (data) => {
             <Image
               className="rounded-full shadow-md"
               src={data.attributes.logo.data === null ? "/images/jobopenings_Icon_01.png" : process.env.NEXT_PUBLIC_URL + data.attributes.logo.data.attributes.url}
-              onError={"/images/jobopenings_Icon_01.png"}
+              //onError={"/images/jobopenings_Icon_01.png"}
               alt="logo"
               height={40}
               width={40}
+              //loader={myLoader}
             />
           </div>
           {/**Company Name */}          
