@@ -1,17 +1,34 @@
 import Image from "next/image";
+import { useState, useContext } from "react";
+import { UserContext } from "../userContext";
 
 const CustomerOverview = () => {
   const svgClass = "w-6 h-6 mr-6";
   const header2 = "text-2xl font-semibold pb-3";
   const ballonClass = "px-3 py-2 rounded-3xl border-[1px] border-gray-400";
   const dividerLine = "w-full h-px bg-slate-200 flex self-center my-5";
+  const [
+    userDetails,
+    setUserDetails,
+    mypostedJobs,
+    setMyPostedJobs,
+    logo,
+    setLogo,
+    customerDetails,
+    setCustomerDetails,
+  ] = useContext(UserContext);
   return (
     <div className="flex flex-col rounded-xl bg-slate-50">
-      <div className="bg-[#0F74BB] text-slate-50 rounded-t-xl flex flex-col md:flex-row md:space-x-10 px-6 py-4 w-full">
+      <div className="bg-[#0F74BB] text-slate-50 rounded-t-xl flex flex-col md:flex-row md:space-x-10 px-8 py-4 w-full">
         <div className="flex justify-center">
           <Image
             className="rounded-full"
-            src="/images/avatar2.jpg"
+            src={
+              customerDetails.data[0].attributes.avatar.data == null
+                ? "/images/avatar2.jpg"
+                : process.env.NEXT_PUBLIC_URL +
+                  customerDetails.data[0].attributes.avatar.data.attributes.url
+            }
             height={100}
             width={100}
             alt="Passport"
@@ -314,15 +331,13 @@ const CustomerOverview = () => {
                   <div className="flex justify-between mb-4">
                     <div>
                       <p className="font-semibold text-[#0F74BB] text-xl">
-                      Bachelor of Computer Science
+                        Bachelor of Computer Science
                       </p>
                       <p className="font-semibold text-sm text-gray-400">
-                      from Regional College
+                        from Regional College
                       </p>
                     </div>
-                    <p className="font-medium text-sm">
-                    2007 - 2011
-                    </p>
+                    <p className="font-medium text-sm">2007 - 2011</p>
                   </div>
                   <p className="text-gray-700 mb-6">
                     Override the digital divide with additional clickthroughs
@@ -355,10 +370,10 @@ const CustomerOverview = () => {
                   <div className="flex justify-between mb-4">
                     <div>
                       <p className="font-semibold text-[#0F74BB] text-xl">
-                      Science and Mathematics
+                        Science and Mathematics
                       </p>
                       <p className="font-semibold text-sm text-gray-400">
-                      from Mt. High Scool
+                        from Mt. High Scool
                       </p>
                     </div>
                     <p className="font-medium text-sm">1995 - 2007</p>

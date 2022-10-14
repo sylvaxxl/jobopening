@@ -9,6 +9,8 @@ const Navbar = () => {
     { name: "SignIn", link: "/signin" },
     { name: "SignUp", link: "/signup" },
     { name: "Jobs", link: "/jobs" },
+    { name: "Dashboard", link: "/dashboard/employer" },
+    { name: "Dashboard-customer", link: "/dashboard/customer" },
   ];
   return (
     <nav className=" bg-[#0F74BB] flex flex-col justify-center text-slate-50">

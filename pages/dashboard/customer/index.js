@@ -47,7 +47,7 @@ const CustomerDashboard = (ctx) => {
       console.log(e);
     }
 
-    const reqLogo = await fetch(
+    const req = await fetch(
       `${process.env.NEXT_PUBLIC_URL}/api/customers?filters[userid][$eq]=${res.id}&populate=*`,
       {
         headers: {
@@ -55,10 +55,16 @@ const CustomerDashboard = (ctx) => {
         },
       }
     );
-    const resLogo = await reqLogo.json();
+    const resLogo = await req.json();
     setCustomerDetails(resLogo);
-    //setLogo("/images/jobopenings_Icon_02.png");
+    //if(resLogo.data[0].attributes.avatar.data !== null) {setLogo(process.env.NEXT_PUBLIC_URL + resLogo.data[0].attributes.avatar.data.attributes.url);}
+    // let finalAvatar = resLogo.data[0].attributes.avatar.data
+    // if(finalAvatar !== null){
+    //   setLogo(process.env.NEXT_PUBLIC_URL + finalAvatar.attributes.url)
+    // }else{
 
+    // }
+    //   console.log(resLogo.data[0].attributes.avatar.data)
     //setLogo(finalLogo);
     setRendered(<CustomerOverview />);
     setLoading(false);
@@ -71,23 +77,23 @@ const CustomerDashboard = (ctx) => {
   const handleClick = () => {
     setUserDetails(null);
     setMyPostedJobs(null);
-    setLogo(null);
+    setLogo("/images/default.png");
     destroyCookie(null, "jwt", {
       path: "/",
     });
     Router.push("/");
   };
-  console.log(userDetails);
+  //console.log(customerDetails);
 
   return (
     <div className="flex">
-      <div className="w-1/4 bg-[#0F74BB] min-h-screen hidden md:block">
+      <div className="w-60 bg-[#0F74BB] min-h-full hidden md:block">
         <div className="flex justify-center m-3">
           {/* <Image className="rounded-full" src={logo} height={80} width={80} /> */}
         </div>
 
         {!loading && (
-          <div className="md:pl-5 lg:pl-7 text-slate-50 font-medium space-y-3 text-xl">
+          <div className="md:pl-5 lg:pl-7 text-slate-50 font-medium space-y-3 text-xl sticky top-20">
             <p
               className="flex cursor-pointer"
               onClick={() => setRendered(<CustomerOverview />)}
@@ -128,7 +134,10 @@ const CustomerDashboard = (ctx) => {
               </svg>
               Edit Profile
             </p>
-            <p className="flex cursor-pointer" onClick={() => setRendered(<WorkExperience />)}>
+            <p
+              className="flex cursor-pointer"
+              onClick={() => setRendered(<WorkExperience />)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -162,7 +171,7 @@ const CustomerDashboard = (ctx) => {
               </svg>
               Applied Jobs
             </p>
-            <p className="flex cursor-pointer" onClick={handleClick}>
+            <p className="flex cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -182,7 +191,7 @@ const CustomerDashboard = (ctx) => {
           </div>
         )}
       </div>
-      <div className="md:w-9/12 min-h-screen w-full bg-slate-200 p-4 relative">
+      <div className="min-h-screen w-full bg-slate-200 p-4 relative flex justify-center">
         <div className="absolute top-2 left-2 md:hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +211,7 @@ const CustomerDashboard = (ctx) => {
         </div>
         {/* Mobile Side Bar */}
         {sideBar && (
-          <div className="h-screen w-screen bg-[#0F74BB] md:hidden absolute top-0 left-0 px-7 py-5 z-10">
+          <div className="h-full w-screen bg-[#0F74BB] md:hidden absolute top-0 left-0 px-7 py-5 z-10">
             <div className="flex justify-end">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -224,7 +233,13 @@ const CustomerDashboard = (ctx) => {
             <div className="flex justify-center m-3">
               <Image
                 className="rounded-full"
-                src={logo}
+                src={
+                  customerDetails.data[0].attributes.avatar.data == null
+                    ? "/images/avatar2.jpg"
+                    : process.env.NEXT_PUBLIC_URL +
+                      customerDetails.data[0].attributes.avatar.data.attributes
+                        .url
+                }
                 height={80}
                 width={80}
                 alt="Logo"
@@ -277,23 +292,28 @@ const CustomerDashboard = (ctx) => {
                 </svg>
                 Edit Profile
               </p>
-              <p className="flex cursor-pointer" onClick={() => setRendered(<WorkExperience />) + setSideBar(!sideBar)}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className={listIcon}
+              <p
+                className="flex cursor-pointer"
+                onClick={() =>
+                  setRendered(<WorkExperience />) + setSideBar(!sideBar)
+                }
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
-                />
-              </svg>
-              Experience
-            </p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className={listIcon}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"
+                  />
+                </svg>
+                Experience
+              </p>
               <p className="flex" onClick={() => setSideBar(!sideBar)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -331,7 +351,10 @@ const CustomerDashboard = (ctx) => {
             </div>
           </div>
         )}
-        {rendered}
+        <div className="max-w-2xl">
+        {rendered} 
+        </div>
+        
       </div>
     </div>
   );
