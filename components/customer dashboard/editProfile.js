@@ -3,8 +3,7 @@ import { UserContext } from "../userContext";
 import { parseCookies } from "nookies";
 import date from "date-and-time";
 import Image from "next/image";
-import { days, months, years, inputClass, applyButton } from "../formdefaults";
-
+import { days, months, years, inputClass, applyButton, errIcon, errmessage } from "../formdefaults";
 
 const EditProfile = (ctx) => {
   const [
@@ -17,18 +16,18 @@ const EditProfile = (ctx) => {
     customerDetails,
     setCustomerDetails,
   ] = useContext(UserContext);
-  const [profileData, setProfileData] = useState();
+  const [profileData, setProfileData] = useState(null);
   const [inputFields, setInputFields] = useState(
     customerDetails.data[0].attributes.skills
-  );    
-  
+  );
+  const [file, setFile] = useState(null)
+  const [errFile, setErrFile] = useState(false)
+
   const jwt = parseCookies(ctx).jwt;
 
- 
   const smallButton =
     "rounded-full px-2 py-1 mb-3 bg-[#0F74BB] text-xs text-slate-50 font-semibold";
   const dividerLine = "w-full h-px bg-slate-200 flex self-center my-5";
-  
 
   const now = new Date(customerDetails.data[0].attributes.dob);
   const period = date.format(now, "DD MMM YYYY");
@@ -50,18 +49,56 @@ const EditProfile = (ctx) => {
     data.splice(index, 1);
     setInputFields(data);
   };
-  
 
- 
   const handleChange = (e) => {
     setProfileData({ ...profileData, [e.target.name]: e.target.value });
   };
- 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(profileData);
-
+    //console.log(inputFields, profileData)
+    if(file !== null){
+      if(file.type === "image/png" || file.type === "image/jpeg"){
+        const reqNull = await fetch(
+          `${process.env.NEXT_PUBLIC_URL}/api/customers/${customerDetails.data[0].id}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ data: { avatar: null } }),
+          }
+        );
+        const resNull = await reqNull.json();
+        console.log(resNull);
+  
+      console.log(file[0]);
+      let formData = new FormData();
+      
+      formData.append("files", file[0]);      
+          formData.append('ref', 'api::customer.customer')
+          formData.append('refId', customerDetails.data[0].id) //'refId' The event Id
+          formData.append('field', 'avatar') //'field' the image field we called 'image'
+          //formData.append('source', 'users-permissions');
+  
+      const req = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/upload`, {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${jwt}`,
+        },     
+        body: formData,
+      });
+      const res = await req.json();
+      console.log(res);
+      } else{
+        return setErrFile(true)
+      }
+     
+    }
+    setErrFile(false)
+    
     // const reqUpdateDetails = await fetch(
     //   `${process.env.NEXT_PUBLIC_URL}/api/customers/${customerDetails.data[0].id}`,
     //   {
@@ -71,14 +108,14 @@ const EditProfile = (ctx) => {
     //       Accept: "application/json",
     //       "Content-Type": "application/json",
     //     },
-    //     body: JSON.stringify({ data: { skills: [...inputFields] } }),
+    //     body: JSON.stringify({ data: {...profileData, skills: [...inputFields] } }),
     //   }
     // );
     // const resUpdateDetails = await reqUpdateDetails.json();
     // console.log(resUpdateDetails);
   };
 
-  console.log(customerDetails);
+  //console.log(customerDetails);
   return (
     <div>
       <div className="text-3xl font-semibold text-center text-[#0F74BB] mb-5">
@@ -103,7 +140,8 @@ const EditProfile = (ctx) => {
             />
             <input
               type="file"
-              onChange={handleChange}
+              accept="image/png, image/jpeg"
+              onChange={(e)=>setFile(e.target.files)}
               name="logo"
               className="text-sm text-grey-500
             file:mr-3 file:py-2 file:px-6
@@ -115,6 +153,7 @@ const EditProfile = (ctx) => {
           "
             />
           </div>
+          {errFile && <p className={`${errmessage} text-lg justify-center`}>{errIcon} Invalid File</p>}
           {/* Title */}
           <input
             className={inputClass}
@@ -255,13 +294,13 @@ const EditProfile = (ctx) => {
           <div className={dividerLine}></div>
           {/* About Yourself */}
           <textarea
-                      className={`${inputClass} h-52`}
-                      name="about"
-                      type="textarea"
-                      placeholder="About Yourself"                      
-                      defaultValue={customerDetails.data[0].attributes.about}
-                      onChange={handleChange}
-                    />
+            className={`${inputClass} h-52`}
+            name="about"
+            type="textarea"
+            placeholder="About Yourself"
+            defaultValue={customerDetails.data[0].attributes.about}
+            onChange={handleChange}
+          />
           <div className="flex justify-center">
             <button className={applyButton} onClick={handleSubmit}>
               Update
